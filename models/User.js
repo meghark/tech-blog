@@ -1,0 +1,48 @@
+//To create models and specify datatypes
+const {Model, DataTypes} = require('sequelize');
+//For database connection
+const sequelize = require('../config/connection');
+//For saving password as hash
+const bcrypt = require('bcrypt')
+
+
+class User extends Model{
+
+}
+
+User.init({
+    id:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+       type: DataTypes.STRING,
+       allowNull: false,
+       unique: true,
+       validate: {
+           isEmail: true
+       }
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            len:[5]
+        }
+    }
+},
+{
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'user'
+});
+
+module.exports = User;
