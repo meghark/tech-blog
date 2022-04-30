@@ -46,4 +46,4 @@ Comment.init({
     modelName: 'comment'
 });
 
-module.exports = User;
+module.exports = Comment;
