@@ -13,6 +13,7 @@ const exhbs = require('express-handlebars');
 const hbs = exhbs.create();
 //express server
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 //express middleware
 app.use(express.json());
@@ -27,5 +28,5 @@ app.use(routes);
 
 //connect to db if that is successfull, start the server on give port
 sequelize.sync({force: true}).then(()=>{
-    app.listen(PORT, () => console.log('Now listening'));
+    app.listen(PORT, () => console.log(`Now listening at ${PORT}`));
 });
