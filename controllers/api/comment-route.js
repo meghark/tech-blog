@@ -2,54 +2,12 @@ const sequelize = require('../../config/connection');
 const {User, Post, Comment} = require('../../models');
 const router = require('express').Router();
 
-router.get('/',async (req, res) => {
-
-    try{
-        const rows = await Post.findAll();
-        res.json(rows);
-    }
-    catch(error)
-    {
-        console.log(error);
-        res.status(500).json(error);
-    }
-});
-
-router.get('/:id',async (req , res) => {
-    try{
-        const rows = await Post.findOne({
-             where: {
-                id: req.params.id,
-            },
-            include:[ {
-                model: Comment
-            },
-            {
-                model: User 
-            }]
-        });
- 
-        if(!rows)
-        {
-            res.status(404).json({message: 'Post not found'});
-        }
-
-        res.json(rows);
-    }
-    catch(error)
-    {
-        console.log(error);
-        res.status(500).json(error);
-    }
-}   
-);
-
 router.post('/', async (req, res) => {
     try{
         const result = await Post.create ( {
-            title: req.body.title,
-            content: req.body.content,
-            user_id: req.body.user_id
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
         });
 
         res.json(result);
