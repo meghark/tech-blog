@@ -1,13 +1,12 @@
-const sequelize = require('../../config/connection');
 const {User, Post, Comment} = require('../../models');
 const router = require('express').Router();
 
 router.post('/', async (req, res) => {
     try{
-        const result = await Post.create ( {
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
+        const result = await Comment.create ( {
+            note: req.body.note,
+            user_id: req.body.user_id,
+            post_id: req.body.post_id
         });
 
         res.json(result);
@@ -21,7 +20,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', (req, res) => {
     try{
-        const results = await User.update(req.body, {
+        const results = await Comment.update({note: req.body.note}, {
             where: {
                 id: req.params.id
             }
@@ -47,7 +46,7 @@ router.delete('/:id', async (req, res) => {
 
     try{
 
-        const result = await User.destroy({
+        const result = await Comment.destroy({
             where: {
                 id: req.params.id
             }
