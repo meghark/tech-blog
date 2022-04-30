@@ -60,7 +60,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     try{
         const results = await User.update(req.body, {
             where: {

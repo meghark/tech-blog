@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     try{
         const results = await Comment.update({note: req.body.note}, {
             where: {

@@ -5,7 +5,7 @@ router.get('/',async (req, res) => {
 
     try{
         const rows = await User.findAll({
-            attributes:[{exclue: 'password'}]
+            attributes:{exclude: ['password']}
         });
 
         res.json(rows);
@@ -20,7 +20,7 @@ router.get('/',async (req, res) => {
 router.get('/:id',async (req , res) => {
     try{
         const rows = await User.findOne({
-            attributes: [{exclue: 'password'}],
+            attributes:{exclude: ['password']},
             where: {
                 id: req.params.id,
             }   

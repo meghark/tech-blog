@@ -27,6 +27,6 @@ app.set('view engine', 'handlebars');
 app.use(routes);
 
 //connect to db if that is successfull, start the server on give port
-sequelize.sync({force: true}).then(()=>{
+sequelize.sync({force: false}).then(()=>{
     app.listen(PORT, () => console.log(`Now listening at ${PORT}`));
 });
