@@ -6,6 +6,14 @@ router.get('/',async (req, res) => {
     try{
         const rows = await Post.findAll({
             include:[{
+                attributes: [
+                    'id',
+                    'title',
+                    'content',
+                    'user_id',
+                    'created_at',
+                    [sequelize.literal('(SELECT COUNT(*) FROM comment WHERE post.id = comment.post_id)'), 'vote_count']
+                  ],
                 model: Comment
             },
             {
