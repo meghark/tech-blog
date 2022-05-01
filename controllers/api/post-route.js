@@ -4,7 +4,14 @@ const router = require('express').Router();
 router.get('/',async (req, res) => {
 
     try{
-        const rows = await Post.findAll();
+        const rows = await Post.findAll({
+            include:[{
+                model: Comment
+            },
+            {
+                model: User
+            }]
+        });
         res.json(rows);
     }
     catch(error)

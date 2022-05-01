@@ -31,3 +31,4 @@ sequelize.sync({force: false}).then(()=>{
     app.listen(PORT, () => console.log(`Now listening at ${PORT}`));
 });
 
+//To Do - Comment count , need adhoc query data from Post table
