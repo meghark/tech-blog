@@ -30,6 +30,7 @@ User.init({
        }
     },
     password: {
+        //Should not be stored or returned as plain text
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -38,6 +39,15 @@ User.init({
     }
 },
 {
+    //Hooks are called before or after the sequelize functions.
+    //Use to do special processing of data like password hashing before saving it in db.
+    hooks:{
+        //Run password hashing on user data received
+        async beforeCreate(newUserData) {
+            newUserData.password= await bcrypt.hash(newUserData.password, 10);
+            return newUserData;
+        }
+    },
     sequelize,
     timestamps: false,
     freezeTableName: true,
