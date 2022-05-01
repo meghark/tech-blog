@@ -1,3 +1,4 @@
+const req = require('express/lib/request');
 const {User, Post, Comment} = require('../../models');
 const router = require('express').Router();
 
@@ -56,6 +57,40 @@ router.post('/', async (req, res) => {
         console.log(error);
         res.status(500).json(error);
     }
+});
+
+//Login route is defined below.
+//Using a POST here so user credentials are passed via request body rather than as url parameters.
+
+router.post('/login', async (req, res) => {
+    try{
+        let rows = await User.findOne({
+            where: {
+                email: req.body.email
+            }
+        });
+    
+        if(!rows)
+        {
+            res.status(404).json({message: 'User not found'});
+            return;
+        }
+
+        let validUser = await rows.checkPassword(req.body.password);
+
+        if(!validUser)
+        {
+            res.status(400).json({message: "Login failed"});
+            return;
+        }
+        res.json({user: rows, message: 'You are logged in'});
+    }
+    catch(error)
+    {
+        console.log(error);
+        res.status(500).json(error);
+    };  
+
 });
 
 router.put('/:id',async (req, res) => {

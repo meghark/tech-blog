@@ -8,6 +8,13 @@ const bcrypt = require('bcrypt')
 
 class User extends Model{
 
+    //Creating the password check method here as the current password db information is available here.
+    
+    checkPassword(verifyPassWord)
+    {
+        return   bcrypt.compareSync(verifyPassWord, this.password);
+    }
+
 }
 
 User.init({
