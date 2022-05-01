@@ -61,6 +61,9 @@ router.post('/', async (req, res) => {
 router.put('/:id',async (req, res) => {
     try{
         const results = await User.update(req.body, {
+            //This will load all instances that are updated into memory and run the beforeUpdate hook
+            //Other wise update hook wont be fired for each individual record.
+            individualHooks: true,
             where: {
                 id: req.params.id
             }
