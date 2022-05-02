@@ -2,7 +2,7 @@ const router = require('express').Router();
 const {Post, Comment, User} = require('../models');
 const sequelize = require('../config/connection');
 
-router.get('/', async (req, res) => {
+router.get('/posts', async (req, res) => {
 
 	try{
 		const rows = await Post.findAll({
@@ -32,9 +32,12 @@ router.get('/', async (req, res) => {
 	{
 		console.log(err);
 		res.status.json(err);
-	}	
+	}		
+});
 
-	
+
+router.get('/login', async(req, res) => {
+	res.render('login');
 });
 
 module.exports = router;
