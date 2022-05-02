@@ -6,8 +6,8 @@ router.get('/', (req, res) => {
 		"title": "Why MVC is important",
 		"content": "MVC allows developers to maintain true separation of concerns, devising their code between the model layer for data,\n                the view  layer for design, and the controller layer for application logic.",
 		"user_id": 1,
-		"createdAt": "2022-04-30T05:37:12.000Z",
-		"updatedAt": "2022-04-30T05:37:12.000Z",
+		"created_at": "2022-04-30T05:37:12.000Z",
+		"comment_count": 4,
 		"comments": [
 			{
 				"id": 7,

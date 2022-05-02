@@ -1,19 +1,20 @@
 const {User, Post, Comment} = require('../../models');
 const router = require('express').Router();
+const sequelize = require('../../config/connection');
 
 router.get('/',async (req, res) => {
 
     try{
-        const rows = await Post.findAll({
-            include:[{
+        const rows = await Post.findAll({            
                 attributes: [
                     'id',
                     'title',
                     'content',
                     'user_id',
                     'created_at',
-                    [sequelize.literal('(SELECT COUNT(*) FROM comment WHERE post.id = comment.post_id)'), 'vote_count']
+                    [sequelize.literal('(SELECT COUNT(*) FROM comment WHERE post.id = comment.post_id )'), 'comment_count']
                   ],
+            include:[{
                 model: Comment
             },
             {
