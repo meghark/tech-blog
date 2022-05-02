@@ -1,19 +1,23 @@
 <div>
 
   {{#each posts as |post|}}
+  
 <!-- We can now combine rows and columns when there's only one column in that row -->
     <div class="row medium-8 large-7 columns">
+      <a href="/posts/{{post.id}}" class="post-block">
+       <div class="callout">
       <div class="blog-post">
         <h3>{{post.title}}</small></h3>
         <p>{{post.content}}</p>
-        <div class="callout">
+       
           <ul class="menu simple">
             <li>Posted By: {{post.user.username}} on {{post.created_at}}</li>
             <!--<li>Comments: {{post.comment_count}}</li>-->
           </ul>
         </div>
-      </div>         
-    </div>
+      </div>  
+      </a>       
+    </div> 
   {{/each}}
 
 </div>

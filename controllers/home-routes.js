@@ -26,15 +26,63 @@ router.get('/posts', async (req, res) => {
 
 		let posts = rows.map((post) => post.get({ plain: true }));
 
-		res.render('posts', {posts});
+		res.render('posts', {posts,
+				loggedIn: req.session.loggedIn		
+		});
 	}
 	catch(err)
 	{
 		console.log(err);
-		res.status.json(err);
+		res.status(500).json(err);
 	}		
 });
 
+router.get('/posts/:id', async(req, res) =>{
+	try{
+		if(req.session.loggedIn)
+		{
+			const postData = await Post.findOne({
+				where: {id: req.params.id},
+				include:[
+					{
+						model: Comment,
+						include: {
+							model: User,
+							attributes: ['username']
+						}
+					},
+					{
+						model: User
+					}
+		
+				]
+			});
+		
+			if(!postData)
+			{
+				res.status(404).json({message: 'No Post found with this id'});
+				return;
+			}
+		
+			let post = postData.get({plain: true});
+	
+			res.render('single-post', {post, 
+							loggedIn: req.session.loggedIn}	
+			);
+		}
+		else
+		{
+			res.redirect('/login');
+			return;
+		}
+		
+	}
+	catch(err)
+	{
+		console.log(err);
+		res.status(500).json(err);
+	}		
+});
 
 router.get('/login', async(req, res) => {
 	if(req.session.loggedIn){

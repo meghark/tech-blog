@@ -12,3 +12,8 @@
       margin: 0;
       padding: 0;
       display: inline-block;}
+
+.post-block{
+  text-decoration: none;
+  color: black;
+}
