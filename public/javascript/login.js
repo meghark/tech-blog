@@ -20,6 +20,7 @@ const loginFormHandler =async () =>{
         if(result.ok)
         {
             console.log('Login Successfull');
+            document.location.replace('/posts');
         }
         else{
             console.log(result.statusText);
