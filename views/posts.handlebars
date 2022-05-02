@@ -8,8 +8,8 @@
         <p>{{post.content}}</p>
         <div class="callout">
           <ul class="menu simple">
-            <li><a href="#">Author: {{post.user.username}}</a></li>
-            <li><a href="#">Comments: {{post.comment_count}}</a></li>
+            <li>Posted By: {{post.user.username}} on {{post.created_at}}</li>
+            <!--<li>Comments: {{post.comment_count}}</li>-->
           </ul>
         </div>
       </div>         
