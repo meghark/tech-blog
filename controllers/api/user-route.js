@@ -50,7 +50,16 @@ router.post('/', async (req, res) => {
             password: req.body.password
         });
 
-        res.json(result);
+        //After creating the user record, add a session for the user in.
+        //save() creates the session and executes the rest of steps in callback
+        req.session.save(() => {
+            req.session.user_id = result.id,
+            req.session.username = result.username;
+            req.session.loggedIn = true;
+
+            res.json(result);
+        });
+        
     }
     catch(error)
     {
@@ -83,7 +92,15 @@ router.post('/login', async (req, res) => {
             res.status(400).json({message: "Login failed"});
             return;
         }
-        res.json({user: rows, message: 'You are logged in'});
+
+        req.session.save(() =>{
+            req.session.user_id = rows.id;
+            req.session.username = rows.username;
+            req.session.loggedIn = true;
+
+            res.json({user: rows, message: 'You are logged in'}); 
+        });
+       
     }
     catch(error)
     {
@@ -91,6 +108,19 @@ router.post('/login', async (req, res) => {
         res.status(500).json(error);
     };  
 
+});
+
+router.post('/logout', (req, res) => {
+    if(req.session.loggedIn)
+    {
+        res.session.destroy(() => {
+            res.status(204).end();
+        });
+    }
+    else
+    {
+        res.status(404).end();
+    }
 });
 
 router.put('/:id',async (req, res) => {

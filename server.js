@@ -9,12 +9,34 @@ const path = require('path');
 //For views and templates using express-handlebars
 const exhbs = require('express-handlebars');
 
+//Libraries to hanlde session
+//Get express session library
+const session = require('express-session');
+//Connect to package for sequelize session store
+const sequelizeStore = require('connect-session-sequelize')(session.Store);
+
+require('dotenv').config();
+
+
+
 //Create handlebars
 const hbs = exhbs.create();
 
 //express server
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+//Setup session variable, with connection to db parameters
+const sess = {
+    secret: process.env.SESSION_SECRET,
+   cookie: {},
+   resave: false,
+   saveUninitialized: true,
+   store: new sequelizeStore({
+       db:sequelize})  
+};
+
+app.use(session(sess));
 
 //express middleware
 app.use(express.json());
