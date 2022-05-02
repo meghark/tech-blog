@@ -1,14 +1,19 @@
+<div>
+
+  {{#each posts as |post|}}
 <!-- We can now combine rows and columns when there's only one column in that row -->
     <div class="row medium-8 large-7 columns">
       <div class="blog-post">
-        <h3>{{title}}</small></h3>
-        <img class="thumbnail" src="https://placehold.it/850x350">
-        <p>{{content}}</p>
+        <h3>{{post.title}}</small></h3>
+        <p>{{post.content}}</p>
         <div class="callout">
           <ul class="menu simple">
-            <li><a href="#">Author: {{user.username}}</a></li>
-            <li><a href="#">Comments: {{comment_count}}</a></li>
+            <li><a href="#">Author: {{post.user.username}}</a></li>
+            <li><a href="#">Comments: {{post.comment_count}}</a></li>
           </ul>
         </div>
       </div>         
     </div>
+  {{/each}}
+
+</div>

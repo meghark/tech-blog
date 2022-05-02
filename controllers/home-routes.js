@@ -1,54 +1,40 @@
 const router = require('express').Router();
+const {Post, Comment, User} = require('../models');
+const sequelize = require('../config/connection');
 
-router.get('/', (req, res) => {
-    res.render('posts', {
-		"id": 1,
-		"title": "Why MVC is important",
-		"content": "MVC allows developers to maintain true separation of concerns, devising their code between the model layer for data,\n                the view  layer for design, and the controller layer for application logic.",
-		"user_id": 1,
-		"created_at": "2022-04-30T05:37:12.000Z",
-		"comment_count": 4,
-		"comments": [
-			{
-				"id": 7,
-				"note": "Excellent!",
-				"user_id": 5,
-				"post_id": 1,
-				"createdAt": "2022-05-01T02:14:51.000Z",
-				"updatedAt": "2022-05-01T02:16:06.000Z"
-			},
-			{
-				"id": 3,
-				"note": "MVC!",
-				"user_id": 3,
-				"post_id": 1,
-				"createdAt": "2022-04-30T05:37:12.000Z",
-				"updatedAt": "2022-04-30T05:37:12.000Z"
-			},
-			{
-				"id": 2,
-				"note": "Learning MVC was hard at first but once figured out its amazing",
-				"user_id": 1,
-				"post_id": 1,
-				"createdAt": "2022-04-30T05:37:12.000Z",
-				"updatedAt": "2022-04-30T05:37:12.000Z"
-			},
-			{
-				"id": 1,
-				"note": "True, agreed",
-				"user_id": 2,
-				"post_id": 1,
-				"createdAt": "2022-04-30T05:37:12.000Z",
-				"updatedAt": "2022-04-30T05:37:12.000Z"
-			}
-		],
-		"user": {
-			"id": 1,
-			"username": "Jerryjone",
-			"email": "test@123.com",
-			"password": "12345"
-		}
-	});
+router.get('/', async (req, res) => {
+
+	try{
+		const rows = await Post.findAll({
+			//Attributes to return from Post table
+			attributes: ['id',
+			'title',
+			'content',
+			'user_id',
+			'created_at',
+			[sequelize.literal('(SELECT COUNT(*) FROM comment WHERE post.id = comment.post_id )'), 'comment_count']],
+			//Related data to include
+			include: [
+				{model: User},
+				{model: Comment}
+			]
+		});
+
+		//Multiple rows returned with above code.
+		//Serialize them for templates to handle
+		//Using array map function to create a new array in which each object is serailized.
+
+		let posts = rows.map((post) => post.get({ plain: true }));
+
+		res.render('posts', {posts});
+	}
+	catch(err)
+	{
+		console.log(err);
+		res.status.json(err);
+	}	
+
+	
 });
 
 module.exports = router;
