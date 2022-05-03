@@ -46,6 +46,7 @@ router.get('/posts/:id', async(req, res) =>{
 				include:[
 					{
 						model: Comment,
+						as: 'comments',
 						include: {
 							model: User,
 							attributes: ['username']
@@ -55,7 +56,8 @@ router.get('/posts/:id', async(req, res) =>{
 						model: User
 					}
 		
-				]
+				],
+				order: [['comments','createdAt', 'Desc']]
 			});
 		
 			if(!postData)
