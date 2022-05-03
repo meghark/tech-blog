@@ -10,4 +10,4 @@ const date_format = date => {
 };
 
 
-module.exports = {date_format, format_url};
+module.exports = {date_format};
