@@ -8,8 +8,10 @@ const sequelize = require('./config/connection');
 const path = require('path');
 //For views and templates using express-handlebars
 const exhbs = require('express-handlebars');
+//helper functions for data format within templates/partials
+const helpers = require('./utils/helpers');
 
-//Libraries to hanlde session
+//Libraries to handle session
 //Get express session library
 const session = require('express-session');
 //Connect to package for sequelize session store
@@ -17,10 +19,8 @@ const sequelizeStore = require('connect-session-sequelize')(session.Store);
 
 require('dotenv').config();
 
-
-
-//Create handlebars
-const hbs = exhbs.create();
+//Create handlebars with helpers
+const hbs = exhbs.create({helpers});
 
 //express server
 const app = express();

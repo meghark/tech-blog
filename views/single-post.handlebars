@@ -11,7 +11,7 @@
         <div class="callout">
           <p>{{comment.note}}</p>   
           <ul class="menu simple">
-            <li>Posted By: {{comment.user.username}} on {{comment.createdAt}}</li>
+            <li>Posted By: {{comment.user.username}} on {{date_format comment.createdAt}}</li>
           </ul>
       </div>  
      {{/each}}    
