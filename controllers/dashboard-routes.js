@@ -30,4 +30,6 @@ router.get('/',withAuth,async (req, res) => {
     
 });
 
+//To do : add screen and update screen route
+
  module.exports = router;
