@@ -1,8 +1,11 @@
   <div class="row medium-8 large-7 columns">
       {{> post-details post}}
-      <p><strong>Comments:</strong></p>
-      <textarea id="comment-message" rows="5" placeholder="Type your comment here"></textarea>
-      <input class="button expanded" type="submit" value="Add Comment">
+      <form class="comment-form">
+        <p><strong>Comments:</strong></p>
+        <textarea id="comment-message" rows="5" placeholder="Type your comment here"></textarea>
+        <input class="button expanded comment-button" type="submit" value="Add Comment">
+      </form>
+      
       
       {{#each post.comments as |comment|}}
         <div class="callout">
