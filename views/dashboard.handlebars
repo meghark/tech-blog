@@ -1,0 +1,13 @@
+<div>
+
+  {{#each posts as |post|}}
+  <!-- We can now combine rows and columns when there's only one column in that row -->
+    <div class="row medium-8 large-7 columns">
+      <a href="/posts/{{post.id}}" class="post-block">
+       {{> post-details post}}
+      </a>       
+    </div> 
+
+  {{/each}}
+
+</div>
