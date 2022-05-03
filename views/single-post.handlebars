@@ -1,27 +1,16 @@
   <div class="row medium-8 large-7 columns">
-      <div class="callout">
-      <div class="blog-post">
-        <h3>{{post.title}}</small></h3>
-        <p>{{post.content}}</p>       
-          <ul class="menu simple">
-            <li>Posted By: {{post.user.username}} on {{post.createdAt}}</li>
-            <!--<li>Comments: {{post.comment_count}}</li>-->
-          </ul>
-        </div>
-      </div>   
-      
+      {{> post-details post}}
       <p><strong>Comments:</strong></p>
       <textarea id="comment-message" rows="5" placeholder="Type your comment here"></textarea>
       <input class="button expanded" type="submit" value="Add Comment">
       
       {{#each post.comments as |comment|}}
-
-      <div class="callout">
-        <p>{{comment.note}}</p>   
-        <ul class="menu simple">
-          <li>Posted By: {{comment.user.username}} on {{comment.createdAt}}</li>
-        </ul>
-     </div>  
+        <div class="callout">
+          <p>{{comment.note}}</p>   
+          <ul class="menu simple">
+            <li>Posted By: {{comment.user.username}} on {{comment.createdAt}}</li>
+          </ul>
+      </div>  
      {{/each}}    
 </div>
 
