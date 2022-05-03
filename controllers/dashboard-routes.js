@@ -2,15 +2,12 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const {Comment, Post, User} = require('../models');
-
+const withAuth = require('../utils/auth');
 
 //Dashboard will display all logged in users post.
 //Use the session variable to get the user_id
 
-router.get('/', async (req, res) => {
-
-    if(req.session.loggedIn)
-    {
+router.get('/',withAuth,async (req, res) => {
         try{    
             let posts = await Post.findAll({
                 where: {
@@ -29,12 +26,7 @@ router.get('/', async (req, res) => {
         {
             console.log(err);
             res.status(500).json(err);
-        }
-    }
-    else
-    {
-        res.redirect('/login');
-    }
+        } 
     
 });
 
