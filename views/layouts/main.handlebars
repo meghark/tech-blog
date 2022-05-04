@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation | Welcome</title>
+    <title>Tech Blog</title>
     <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css">
@@ -14,21 +14,22 @@
     <div id="access" >
         <ul class="menu nav-bar">
           <li class="menu-text"><a href="/posts">Home</a></li>
-          
           {{#if loggedIn}}
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li id="logout">Logout</a></li>
+          <li class="menu-text"><a href="/dashboard">Dashboard</a></li>
+
+          <li class="menu-text" id="logout">Logout</a></li>
           {{else}}
-            <li><a href="/dashboard">Dashboard</a></li>
-            <li><a href="/login">Login</a></li>
+          <li class="menu-text"><a href="/dashboard">Dashboard</a></li>
+          
+          <li class="menu-text"><a href="/login">Login</a></li>
           {{/if}}
         </ul>
     </div>
     <!-- End Top Bar -->
 
-    <div class="callout large primary">
+    <div class="callout  primary">
       <div class="row column text-center">
-        <h1>The Tech Blog</h1>
+      <h1>The Tech Blog</h1>
       </div>
     </div>
 
