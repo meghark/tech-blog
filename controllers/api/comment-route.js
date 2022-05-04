@@ -1,7 +1,7 @@
 const {User, Post, Comment} = require('../../models');
 const router = require('express').Router();
 
-router.post('/', async (req, res) => {
+router.post('/', withAuth,async (req, res) => {
     //Comments can be created by logged in user only
     if(req.session)
     {
