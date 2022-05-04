@@ -1,16 +1,18 @@
 <div>
-  <a href="">
-      <div class="row align-right">
-        <div class="column small-4">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          <span>New Post</span>    
-        </div>       
+  
+      <div class="row align-right"> 
+        <a href="/dashboard/add-post">    
+          <div class="column small-4 new-post">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <span>New Post</span>    
+          </div>       
+        </a>
       </div>    
-  </a>
+  
   {{#each posts as |post|}}
   <!-- We can now combine rows and columns when there's only one column in that row -->
     <div class="row medium-8 large-7 columns">
-      <a href="/posts/{{post.id}}" class="post-block">
+      <a href="/dashboard/update-post/{{post.id}}" class="post-block">
        <div class="callout">
       <div class="blog-post">
         <h3>{{title}}</small></h3>

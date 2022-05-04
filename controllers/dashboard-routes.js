@@ -30,6 +30,14 @@ router.get('/',withAuth,async (req, res) => {
     
 });
 
+router.get('/add-post',withAuth ,async(req, res)=> {
+    res.render('add-post');
+})
+
+router.get('/update-post/:id',withAuth ,async(req, res)=> {
+    res.render('update-post');
+})
+
 //To do : add screen and update screen route
 
  module.exports = router;
