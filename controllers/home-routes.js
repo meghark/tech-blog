@@ -2,8 +2,7 @@ const router = require('express').Router();
 const {Post, Comment, User} = require('../models');
 const sequelize = require('../config/connection');
 
-router.get('/posts', async (req, res) => {
-
+router.get('/', async (req, res) => {
 	try{
 		const rows = await Post.findAll({
 			//Attributes to return from Post table
@@ -13,6 +12,7 @@ router.get('/posts', async (req, res) => {
 			'user_id',
 			'created_at',
 			[sequelize.literal('(SELECT COUNT(*) FROM comment WHERE post.id = comment.post_id )'), 'comment_count']],
+			order: [['created_at', 'Desc']],
 			//Related data to include
 			include: [
 				{model: User},
