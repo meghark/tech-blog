@@ -64,7 +64,8 @@ router.post('/', async (req, res) => {
         const result = await Post.create ( {
             title: req.body.title,
             content: req.body.content,
-            user_id: req.body.user_id
+            //User is available in the session variable
+            user_id: req.session.user_id
         });
 
         res.json(result);
@@ -78,7 +79,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try{
-        const results = await User.update(req.body, {
+        const results = await Post.update(req.body, {
             where: {
                 id: req.params.id
             }
@@ -104,7 +105,7 @@ router.delete('/:id', async (req, res) => {
 
     try{
 
-        const result = await User.destroy({
+        const result = await Post.destroy({
             where: {
                 id: req.params.id
             }
