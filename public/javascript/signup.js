@@ -22,11 +22,12 @@ const signUpFormHandler =async () => {
         if(result.ok)
         {
             console.log('User sign up completed successully');
+            console.log('Login Successfull');
+            document.location.replace('/');
         }
         else{
             console.log(result.statusText);
         }
-
         
     }
 };

@@ -17,3 +17,10 @@
   text-decoration: none;
   color: black;
 }
+
+
+.logout-link, a {
+  cursor:pointer;
+  color:blue;
+
+}

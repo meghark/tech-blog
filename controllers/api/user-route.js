@@ -1,22 +1,5 @@
-const req = require('express/lib/request');
-const {User, Post, Comment} = require('../../models');
+const {User} = require('../../models');
 const router = require('express').Router();
-
-router.get('/',async (req, res) => {
-
-    try{
-        const rows = await User.findAll({
-            attributes:{exclude: ['password']}
-        });
-
-        res.json(rows);
-    }
-    catch(error)
-    {
-        console.log(error);
-        res.status(500).json(error);
-    }
-});
 
 router.get('/:id',async (req , res) => {
     try{
@@ -42,24 +25,14 @@ router.get('/:id',async (req , res) => {
 }   
 );
 
-router.post('/', async (req, res) => {
+router.get('/',async (req, res) => {
+
     try{
-        const result = await User.create ( {
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
+        const rows = await User.findAll({
+            attributes:{exclude: ['password']}
         });
 
-        //After creating the user record, add a session for the user in.
-        //save() creates the session and executes the rest of steps in callback
-        req.session.save(() => {
-            req.session.user_id = result.id,
-            req.session.username = result.username;
-            req.session.loggedIn = true;
-
-            res.json(result);
-        });
-        
+        res.json(rows);
     }
     catch(error)
     {
@@ -67,6 +40,7 @@ router.post('/', async (req, res) => {
         res.status(500).json(error);
     }
 });
+
 
 //Login route is defined below.
 //Using a POST here so user credentials are passed via request body rather than as url parameters.
@@ -120,6 +94,32 @@ router.post('/logout', (req, res) => {
     else
     {
         res.status(404).end();
+    }
+});
+
+router.post('/', async (req, res) => {
+    try{
+        const result = await User.create ( {
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        //After creating the user record, add a session for the user in.
+        //save() creates the session and executes the rest of steps in callback
+        req.session.save(() => {
+            req.session.user_id = result.id,
+            req.session.username = result.username;
+            req.session.loggedIn = true;
+
+            res.json(result);
+        });
+        
+    }
+    catch(error)
+    {
+        console.log(error);
+        res.status(500).json(error);
     }
 });
 
