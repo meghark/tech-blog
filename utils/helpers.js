@@ -3,7 +3,7 @@ const date_format = date => {
     const dateForProcessing = new Date(date);
     const year = dateForProcessing.getFullYear();
     const month = dateForProcessing.getMonth() +1;
-    const day = dateForProcessing.getDay();
+    const day = dateForProcessing.getDate();
 
     //Convert the input date as mm/dd/yyyy
     return `${month}/${day}/${year}`;
