@@ -28,8 +28,11 @@ const PORT = process.env.PORT || 3001;
 
 //Setup session variable, with connection to db parameters
 const sess = {
-    secret: process.env.SESSION_SECRET,
-   cookie: {},
+    secret: "916c31fe5aa10e36",
+   cookie: {
+    //Expires after 5 minute of inactivity
+    expires: 300000
+   },
    resave: false,
    saveUninitialized: true,
    store: new sequelizeStore({
